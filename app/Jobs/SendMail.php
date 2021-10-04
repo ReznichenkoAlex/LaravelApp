@@ -41,8 +41,6 @@ class SendMail implements ShouldQueue
     {
         $product = $this->product;
         $user = $this->user;
-//        $email = new Order($product, $user);
-        dd($product, $user);
-        Mail::to(\Auth::user())->send($email);
+        Mail::to($user->email)->send(new Order($product, $user));
     }
 }

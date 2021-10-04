@@ -32,12 +32,9 @@ class HomeController extends Controller
 
     public function buy(Product $product, User $user)
     {
-//        \App\Jobs\CreateOrder::withChain([
-//            new \App\Jobs\SendMail($product, $user)
-//        ])->dispatch($user, $product);
-//        \App\Jobs\SendMail::dispatch($product, $user);
-//        \App\Jobs\ReturnResponce::dispatch($product, $user);
-        Mail::to(\Auth::user())->queue(new Order($product, $user));
+        \App\Jobs\CreateOrder::withChain([
+            new \App\Jobs\SendMail($product, $user)
+        ])->dispatch($user, $product);
         return view('home', ['product' => $product]);
     }
 
