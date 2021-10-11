@@ -25,6 +25,8 @@ class CreateOrder implements ShouldQueue
     protected $user;
     protected $product;
 
+    public $tries = 3;
+
     public function __construct(User $user, Product $product)
     {
         $this->user = $user;
@@ -43,5 +45,10 @@ class CreateOrder implements ShouldQueue
             'product_id' => $this->product->id,
             'user_email' => $this->user->email
         ]);
+    }
+
+    public function failed()
+    {
+        info(__CLASS__ . "Ошибка выполнения");
     }
 }

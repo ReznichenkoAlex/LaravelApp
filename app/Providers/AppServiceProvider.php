@@ -32,7 +32,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         View::composer('layouts.sidebar.category', function (\Illuminate\View\View $view) {
-            return $view->with('categories', Category::all());
+            return $view->with('categories', Category::getCacheCategories());
         });
         View::composer('layouts.footer', function (\Illuminate\View\View $view) {
             return $view->with('product', Product::query()->inRandomOrder()->first());

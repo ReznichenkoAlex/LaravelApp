@@ -26,7 +26,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $products = Product::with('category')->orderByDesc('id')->get();
+        $products = Product::with('category')->orderByDesc('id')->paginate('6');
         return view('index', ['products' => $products]);
     }
 

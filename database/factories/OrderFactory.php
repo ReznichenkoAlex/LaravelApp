@@ -2,17 +2,18 @@
 
 namespace Database\Factories;
 
-use App\Models\Category;
+use App\Models\Order;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class CategoryFactory extends Factory
+class OrderFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Category::class;
+    protected $model = Order::class;
 
     /**
      * Define the model's default state.
@@ -21,9 +22,10 @@ class CategoryFactory extends Factory
      */
     public function definition()
     {
+        $user = User::query()->inRandomOrder()->first();
         return [
-            'name' => $this->faker->word(),
-            'description' => $this->faker->text()
+            'product_id' => mt_rand(1, 40),
+            'user_email' => $user->email
         ];
     }
 }

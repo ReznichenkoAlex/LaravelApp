@@ -25,6 +25,8 @@ class SendMail implements ShouldQueue
     public $user;
     public $product;
 
+    public $tries = 3;
+
     public function __construct(Product $product, User $user)
     {
         $this->product = $product;
@@ -42,5 +44,10 @@ class SendMail implements ShouldQueue
         $product = $this->product;
         $user = $this->user;
         Mail::to($user->email)->send(new Order($product, $user));
+    }
+
+    public function failed()
+    {
+        info(__CLASS__ . "Ошибка выполнения");
     }
 }

@@ -25,7 +25,7 @@
                         <div class="product-container__content-text__price__value">
                             Цена: <b>{{$product->price}}</b>
                             руб
-                        </div><a href="#" class="btn btn-blue">Купить</a>
+                        </div><a href={{route('buy', ['product' => $product->id, 'user' => Auth::user()  ?? ' '])}} class="btn btn-blue">Купить</a>
                     </div>
                     <div class="product-container__content-text__description">
                         <p>

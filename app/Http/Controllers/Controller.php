@@ -15,7 +15,7 @@ class Controller extends BaseController
 
     public function index()
     {
-        $products = Product::with('category')->orderByDesc('id')->get();
+        $products = Product::with('category')->orderByDesc('id')->paginate(config('myConfig.db_retrieve_count.paginate.index'));
         return view('index', ['products' => $products]);
     }
 
@@ -26,10 +26,13 @@ class Controller extends BaseController
 
     public function category(Category $category)
     {
-        $products = $category::with('products')
-            ->find($category->id)
-            ->products;
-        return view('category', ['category_name' => $category->name,'products' => $products]);
+        $id = $category->id;
+        $name = $category->name;
+        $products = Product::query()
+            ->where('category_id', $id)
+            ->orderByDesc('id')
+            ->paginate(config('myConfig.db_retrieve_count.paginate.category'));
+        return view('category', ['category_name' => $name,'products' => $products]);
     }
 
     public function news()
@@ -39,7 +42,7 @@ class Controller extends BaseController
 
     public function about()
     {
-        $products = Product::with('category')->inRandomOrder()->limit(3)->get();
+        $products = Product::with('category')->inRandomOrder()->limit(config('myConfig.db_retrieve_count.limit.about'))->get();
         return view('about', ['products' => $products]);
     }
 

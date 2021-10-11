@@ -76,7 +76,7 @@
                                     src={{$product->image}} alt="Preview-image"
                                     class="products-columns__item__thumbnail__img"></a></div>
                         <div class="products-columns__item__description"><span
-                                class="products-price">{{$product->price}}</span><a href="#"
+                                class="products-price">{{$product->price}}</span><a href={{route('buy', ['product' => $product->id, 'user' => Auth::user()  ?? ' '])}}
                                                                                     class="btn btn-blue">Купить</a>
                         </div>
                     </div>

@@ -8,7 +8,7 @@
                     <div class="item-product__thumbnail"><a href={{route('product', ['product' => $product->id])}} class="item-product__thumbnail__link"><img src={{$product->image}} alt="Preview-image" class="item-product__thumbnail__link__img"></a></div>
                     <div class="item-product__description">
                         <div class="item-product__description__products-price"><span class="products-price">{{$product->price}}</span></div>
-                        <div class="item-product__description__btn-block"><a href="#" class="btn btn-blue">Купить</a></div>
+                        <div class="item-product__description__btn-block"><a href={{route('buy', ['product' => $product->id, 'user' => Auth::user() ?? ' '])}} class="btn btn-blue">Купить</a></div>
                     </div>
                 </div>
             </div>

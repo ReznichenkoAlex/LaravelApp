@@ -3,13 +3,17 @@
     <nav class="main-navigation">
         <ul class="nav-list">
             <li class="nav-list__item"><a href={{route('index')}} class="nav-list__item__link">Главная</a></li>
-            <li class="nav-list__item"><a href="#" class="nav-list__item__link">Мои заказы</a></li>
             <li class="nav-list__item"><a href={{route('news')}} class="nav-list__item__link">Новости</a></li>
             <li class="nav-list__item"><a href={{route('about')}} class="nav-list__item__link">О компании</a></li>
         </ul>
     </nav>
     <div class="header-contact">
-        <div class="header-contact__phone"><a href="#" class="header-contact__phone-link">Телефон: 33-333-33</a></div>
+        @if(Auth::user() && Auth::user()->isAdmin)
+            <li class="nav-list__item"><a href={{route('admin')}} class="nav-list__item__link">Панель Администратора</a></li>
+        @else
+            <div class="header-contact__phone"><a href="#" class="header-contact__phone-link">Телефон: 33-333-33</a></div>
+        @endif
+
     </div>
     <div class="header-container">
         <div class="payment-container">
