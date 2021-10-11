@@ -26,7 +26,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $products = Product::with('category')->orderByDesc('id')->paginate('6');
+        $products = Product::with('category')->orderByDesc('id')->paginate(config('myConfig.db_retrieve_count.paginate.index'));
         return view('index', ['products' => $products]);
     }
 
