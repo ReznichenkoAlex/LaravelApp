@@ -8,9 +8,9 @@ use Illuminate\Http\Request;
 
 class AdminControllerOrders extends AdminController
 {
-    public function index()
+    public function showOrders(Order $model)
     {
-        $orders = Order::query()->with('product')->orderByDesc('id')->paginate(config('myConfig.db_retrieve_count.paginate.admin.order'));
+        $orders = $model->query()->with('product')->orderByDesc('id')->paginate(config('myConfig.db_retrieve_count.paginate.admin.order'));
         return view('admin.orders' , ['orders' => $orders]);
     }
 
@@ -29,7 +29,7 @@ class AdminControllerOrders extends AdminController
            'product_id' => $product_id,
            'user_email' => $user_email
         ]);
-        return redirect()->action([AdminControllerOrders::class, 'index'])->with('status', config('myConfig.redirect.admin.order.created'));
+        return redirect()->action([AdminControllerOrders::class, 'showOrders'])->with('status', config('myConfig.redirect.admin.order.created'));
     }
 
     public function update(AdminRequestOrders $request)
@@ -41,13 +41,13 @@ class AdminControllerOrders extends AdminController
         $updatedOrder->product_id = $newProductID;
         $updatedOrder->user_email = $newUserEmail;
         $updatedOrder->save();
-        return redirect()->action([AdminControllerOrders::class, 'index'])->with('status', config('myConfig.redirect.admin.order.updated'));
+        return redirect()->action([AdminControllerOrders::class, 'showOrders'])->with('status', config('myConfig.redirect.admin.order.updated'));
     }
 
     public function delete(AdminRequestOrders $request)
     {
         $order_id = $request->order_id;
         Order::destroy($order_id);
-        return redirect()->action([AdminControllerOrders::class, 'index'])->with('status', config('myConfig.redirect.admin.order.deleted'));
+        return redirect()->action([AdminControllerOrders::class, 'showOrders'])->with('status', config('myConfig.redirect.admin.order.deleted'));
     }
 }

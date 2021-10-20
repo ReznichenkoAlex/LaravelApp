@@ -8,9 +8,9 @@ use Illuminate\Http\Request;
 
 class AdminControllerCategories extends AdminController
 {
-    public function index()
+    public function showCategories(Category $model)
     {
-        $categories = Category::query()->paginate(config('myConfig.db_retrieve_count.paginate.admin.category'));
+        $categories = $model->query()->paginate(config('myConfig.db_retrieve_count.paginate.admin.category'));
         return view('admin.categories' , ['categories' => $categories]);
     }
 
@@ -28,7 +28,7 @@ class AdminControllerCategories extends AdminController
         Category::query()->create([
             'name' => $category,
             'description' => $description]);
-        return redirect()->action([AdminControllerCategories::class, 'index'])->with('status', config('myConfig.redirect.admin.category.created'));
+        return redirect()->action([AdminControllerCategories::class, 'showCategories'])->with('status', config('myConfig.redirect.admin.category.created'));
     }
 
     public function update(AdminRequestCategory $request)
@@ -40,13 +40,13 @@ class AdminControllerCategories extends AdminController
         $updatedCategory->name = $newName;
         $updatedCategory->description = $newDescription;
         $updatedCategory->save();
-        return redirect()->action([AdminControllerCategories::class, 'index'])->with('status', config('myConfig.redirect.admin.category.updated'));
+        return redirect()->action([AdminControllerCategories::class, 'showCategories'])->with('status', config('myConfig.redirect.admin.category.updated'));
     }
 
     public function delete(AdminRequestCategory $request)
     {
         $category_id = $request->category_id;
         Category::destroy($category_id);
-        return redirect()->action([AdminControllerCategories::class, 'index'])->with('status', config('myConfig.redirect.admin.category.deleted'));
+        return redirect()->action([AdminControllerCategories::class, 'showCategories'])->with('status', config('myConfig.redirect.admin.category.deleted'));
     }
 }

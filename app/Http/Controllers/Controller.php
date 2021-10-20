@@ -13,9 +13,9 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    public function index()
+    public function index(Product $model)
     {
-        $products = Product::with('category')->orderByDesc('id')->paginate(config('myConfig.db_retrieve_count.paginate.index'));
+        $products = $model->with('category')->orderByDesc('id')->paginate(config('myConfig.db_retrieve_count.paginate.index'));
         return view('index', ['products' => $products]);
     }
 
@@ -40,9 +40,9 @@ class Controller extends BaseController
         return view('news');
     }
 
-    public function about()
+    public function about(Product $model)
     {
-        $products = Product::with('category')->inRandomOrder()->limit(config('myConfig.db_retrieve_count.limit.about'))->get();
+        $products = $model->with('category')->inRandomOrder()->limit(config('myConfig.db_retrieve_count.limit.about'))->get();
         return view('about', ['products' => $products]);
     }
 

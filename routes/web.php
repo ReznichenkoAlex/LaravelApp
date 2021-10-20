@@ -24,23 +24,23 @@ Route::get('/news', [App\Http\Controllers\Controller::class, 'news'])->name('new
 Route::get('/about', [App\Http\Controllers\Controller::class, 'about'])->name('about');
 Route::get('/buy/{product}/user/{user}', [App\Http\Controllers\HomeController::class, 'buy'])->name('buy');
 Route::group(['prefix' => 'admin'], function (){
-    Route::get('/', [\App\Http\Controllers\AdminController::class, 'index'])->name('admin');
+    Route::get('/', [\App\Http\Controllers\AdminController::class, 'showAdminPanel'])->name('admin');
     Route::group(['prefix' => 'categories'], function (){
-        Route::get('/', [\App\Http\Controllers\AdminControllerCategories::class, 'index'])->name('admin.categories.index');
+        Route::get('/', [\App\Http\Controllers\AdminControllerCategories::class, 'showCategories'])->name('admin.categories.index');
         Route::post('/create', [\App\Http\Controllers\AdminControllerCategories::class, 'create'])->name('admin.categories.create');
         Route::post('/delete', [\App\Http\Controllers\AdminControllerCategories::class, 'delete'])->name('admin.categories.delete');
         Route::post('/update', [\App\Http\Controllers\AdminControllerCategories::class, 'update'])->name('admin.categories.update');
         Route::post('/read', [\App\Http\Controllers\AdminControllerCategories::class, 'read'])->name('admin.categories.read');
     });
     Route::group(['prefix' => 'orders'], function (){
-        Route::get('/', [\App\Http\Controllers\AdminControllerOrders::class,'index'])->name('admin.orders.index');
+        Route::get('/', [\App\Http\Controllers\AdminControllerOrders::class,'showOrders'])->name('admin.orders.index');
         Route::post('/create', [\App\Http\Controllers\AdminControllerOrders::class, 'create'])->name('admin.orders.create');
         Route::post('/delete', [\App\Http\Controllers\AdminControllerOrders::class, 'delete'])->name('admin.orders.delete');
         Route::post('/update', [\App\Http\Controllers\AdminControllerOrders::class, 'update'])->name('admin.orders.update');
         Route::post('/read', [\App\Http\Controllers\AdminControllerOrders::class, 'read'])->name('admin.orders.read');
     });
     Route::group(['prefix' => 'products'], function() {
-        Route::get('/', [\App\Http\Controllers\AdminControllerProduct::class,'index'])->name('admin.products.index');
+        Route::get('/', [\App\Http\Controllers\AdminControllerProduct::class,'showProducts'])->name('admin.products.index');
         Route::post('/create', [\App\Http\Controllers\AdminControllerProduct::class, 'create'])->name('admin.products.create');
         Route::post('/delete', [\App\Http\Controllers\AdminControllerProduct::class, 'delete'])->name('admin.products.delete');
         Route::post('/update', [\App\Http\Controllers\AdminControllerProduct::class, 'update'])->name('admin.products.update');

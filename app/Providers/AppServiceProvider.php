@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Services\ImageService\SaveImageInterface;
+use App\Services\ImageService\SaveImageIntervention;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
@@ -22,6 +24,7 @@ class AppServiceProvider extends ServiceProvider
         if ($this->app->isLocal()) {
             $this->app->register(\Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);
         }
+        $this->app->bind(SaveImageInterface::class, SaveImageIntervention::class);
     }
 
     /**

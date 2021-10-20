@@ -39,5 +39,6 @@ return [
             'width' => '616',
             'height' => '353'
         ],
-    ]
+    ],
+    'document_root' => $_SERVER['DOCUMENT_ROOT'],
 ];

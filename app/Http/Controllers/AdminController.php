@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Barryvdh\Debugbar\Controllers\BaseController;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -11,7 +12,7 @@ class AdminController extends Controller
         $this->middleware('auth');
     }
 
-    public function index()
+    public function showAdminPanel()
     {
         return view('admin.index');
     }

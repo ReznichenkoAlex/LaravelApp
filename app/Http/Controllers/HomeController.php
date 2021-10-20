@@ -24,9 +24,9 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(Product $model)
     {
-        $products = Product::with('category')->orderByDesc('id')->paginate(config('myConfig.db_retrieve_count.paginate.index'));
+        $products = $model->with('category')->orderByDesc('id')->paginate(config('myConfig.db_retrieve_count.paginate.index'));
         return view('index', ['products' => $products]);
     }
 
